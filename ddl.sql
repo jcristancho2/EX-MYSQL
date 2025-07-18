@@ -2,15 +2,15 @@ CREATE DATABASE IF NOT EXISTS sakilacampus;
 
 USE sakilacampus;
 
---pais
-CREATE TABLE pais (
+
+CREATE TABLE IF NOT EXISTS pais (
     id_pais INT PRIMARY KEY,
     nombre VARCHAR(50),
     ultima_actualizacion TIMESTAMP
 );
 
---ciudad
-CREATE TABLE ciudad (
+
+CREATE TABLE IF NOT EXISTS ciudad (
     id_ciudad INT PRIMARY KEY,
     nombre VARCHAR(50),
     id_pais INT,
@@ -18,8 +18,8 @@ CREATE TABLE ciudad (
     FOREIGN KEY (id_pais) REFERENCES pais(id_pais)
 );
 
---direccion
-CREATE TABLE direccion (
+
+CREATE TABLE IF NOT EXISTS direccion (
     id_direccion INT PRIMARY KEY,
     direccion VARCHAR(50),
     direccion2 VARCHAR(50),
@@ -31,15 +31,15 @@ CREATE TABLE direccion (
     FOREIGN KEY (id_ciudad) REFERENCES ciudad(id_ciudad)
 );
 
---idioma
-CREATE TABLE idioma (
+
+CREATE TABLE IF NOT EXISTS idioma (
     id_idioma INT PRIMARY KEY,
     nombre VARCHAR(20),
     ultima_actualizacion TIMESTAMP
 );
 
---empleado
-CREATE TABLE empleado (
+
+CREATE TABLE IF NOT EXISTS empleado (
     id_empleado INT PRIMARY KEY,
     nombre VARCHAR(45),
     apellidos VARCHAR(45),
@@ -54,8 +54,8 @@ CREATE TABLE empleado (
     FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion)
 );
 
---almacen
-CREATE TABLE almacen (
+
+CREATE TABLE IF NOT EXISTS almacen (
     id_almacen INT PRIMARY KEY,
     id_empleado_jefe INT,
     id_direccion INT,
@@ -64,8 +64,8 @@ CREATE TABLE almacen (
     FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion)
 );
 
---cliente
-CREATE TABLE cliente (
+
+CREATE TABLE IF NOT EXISTS cliente (
     id_cliente INT PRIMARY KEY,
     id_almacen INT,
     nombre VARCHAR(45),
@@ -79,8 +79,8 @@ CREATE TABLE cliente (
     FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion)
 );
 
---pelicula
-CREATE TABLE pelicula (
+
+CREATE TABLE IF NOT EXISTS pelicula (
     id_pelicula INT PRIMARY KEY,
     titulo VARCHAR(255),
     descripcion TEXT,
@@ -98,8 +98,8 @@ CREATE TABLE pelicula (
     FOREIGN KEY (id_idioma_original) REFERENCES idioma(id_idioma)
 );
 
---inventario
-CREATE TABLE inventario (
+
+CREATE TABLE IF NOT EXISTS inventario (
     id_inventario MEDIUMINT PRIMARY KEY,
     id_pelicula INT,
     id_almacen INT,
@@ -108,8 +108,8 @@ CREATE TABLE inventario (
     FOREIGN KEY (id_almacen) REFERENCES almacen(id_almacen)
 );
 
---alquiler
-CREATE TABLE alquiler (
+
+CREATE TABLE IF NOT EXISTS alquiler (
     id_alquiler INT PRIMARY KEY,
     fecha_alquiler DATETIME,
     id_inventario MEDIUMINT,
@@ -122,8 +122,8 @@ CREATE TABLE alquiler (
     FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado)
 );
 
---pago
-CREATE TABLE pago (
+
+CREATE TABLE IF NOT EXISTS pago (
     id_pago INT PRIMARY KEY,
     id_cliente INT,
     id_empleado INT,
@@ -136,15 +136,15 @@ CREATE TABLE pago (
     FOREIGN KEY (id_alquiler) REFERENCES alquiler(id_alquiler)
 );
 
---categoria
-CREATE TABLE categoria (
+
+CREATE TABLE IF NOT EXISTS categoria (
     id_categoria INT PRIMARY KEY,
     nombre VARCHAR(25),
     ultima_actualizacion TIMESTAMP
 );
 
---pelicula_categoria
-CREATE TABLE pelicula_categoria (
+
+CREATE TABLE IF NOT EXISTS pelicula_categoria (
     id_pelicula INT,
     id_categoria INT,
     ultima_actualizacion TIMESTAMP,
@@ -153,16 +153,16 @@ CREATE TABLE pelicula_categoria (
     FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
 );
 
---actor
-CREATE TABLE actor (
+
+CREATE TABLE IF NOT EXISTS actor (
     id_actor INT PRIMARY KEY,
     nombre VARCHAR(45),
     apellidos VARCHAR(45),
     ultima_actualizacion TIMESTAMP
 );
 
---pelicula_actor
-CREATE TABLE pelicula_actor (
+
+CREATE TABLE IF NOT EXISTS pelicula_actor (
     id_actor INT,
     id_pelicula INT,
     ultima_actualizacion TIMESTAMP,
@@ -170,3 +170,4 @@ CREATE TABLE pelicula_actor (
     FOREIGN KEY (id_actor) REFERENCES actor(id_actor),
     FOREIGN KEY (id_pelicula) REFERENCES pelicula(id_pelicula)
 );
+
